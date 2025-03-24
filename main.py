@@ -2,13 +2,20 @@ import gdown
 import os
 import joblib
 
-# Google Drive file link (get your own link)
-file_url = "https://drive.google.com/uc?id=YOUR_FILE_ID"
+# Google Drive File ID
+file_id = "1KmJQn1GT7F5f8n1v67kCkn8MvHwnUzz2"
+file_url = f"https://drive.google.com/uc?id={file_id}"
 
-# Download model if not present
+# Model file path
 model_path = "best_size_model.pkl"
+
+# Download model only if it doesn't exist
 if not os.path.exists(model_path):
-    gdown.download(file_url, model_path, quiet=False)
+    try:
+        print("📥 Downloading model from Google Drive...")
+        gdown.download(file_url, model_path, quiet=False)
+    except Exception as e:
+        print(f"❌ Error downloading model: {e}")
 
 # Load the model
 def load_model():
